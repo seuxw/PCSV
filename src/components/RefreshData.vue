@@ -1,10 +1,5 @@
 <template>
   <div>
-    <div>
-      <divider class="vux-divider">
-        <span style="color: #698491;">最后同步于: {{lastRefreshTime}}</span>
-      </divider>
-    </div>
     <div class="vux-circle-demo">
       <div class="vux-circle-demo-p">
         <x-circle :percent="percent"
@@ -12,12 +7,12 @@
           :trail-width="1"
           :stroke-color="['#36D1DC', '#5B86E5']"
           trail-color="#ececec">
-          <countup v-if="step!=3"
+          <countup v-if="step<3"
             :start-val="1"
             :end-val="percent"
             :duration="3"
             class="vux-circle-demo-font"></countup>
-          <span v-if="step!=3"
+          <span v-if="step<3"
             class="vux-circle-demo-font">%</span>
           <svg v-else
             class="icon myIconStyle"
@@ -54,7 +49,7 @@
         <x-button v-else
           plain
           disabled
-          style="border-radius:99px;color: #97A8B0;">距下次同步 20 分钟</x-button>
+          style="border-radius:99px;color: #97A8B0;">同 步 数 据 (21min)</x-button>
       </box>
     </div>
   </div>
@@ -107,16 +102,14 @@ export default {
 .vux-demo {
   text-align: center;
 }
-.vux-divider {
-  -webkit-transform: scale(0.7);
-}
 .align-middle {
   text-align: center;
-  color: #698491;
-  -webkit-transform: scale(0.8);
+  color: #335769;
+  -webkit-transform: scale(0.75);
 }
 .vux-circle-demo {
-  padding-top: 21%;
+  padding-top: 36%;
+  right: 0%;
   text-align: center;
 }
 .vux-circle-demo-p {
@@ -133,18 +126,19 @@ export default {
 .myIconStyle {
   width: 60%;
   height: 60%;
-  color: #698491;
+  color: #335769;
 }
 .vux-marquee {
   position: fixed;
-  bottom: 15%;
+  bottom: 12%;
   right: 0%;
   left: 0%;
+  color: #335769;
 }
 .vux-button {
   position: fixed;
-  bottom: 7%;
-  right: 15%;
-  left: 15%;
+  bottom: 5%;
+  right: 18%;
+  left: 18%;
 }
 </style>
