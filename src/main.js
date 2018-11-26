@@ -1,18 +1,16 @@
-import Vue from 'vue';
-import FastClick from 'fastclick';
-import VueRouter from 'vue-router';
-import App from './App';
-import RefreshData from './components/RefreshData';
-import './assets/iconfont/iconfont.js';
+import Vue from 'vue'
+import FastClick from 'fastclick'
+import VueRouter from 'vue-router'
+import App from './App'
+import RefreshData from './components/RefreshData'
+import './assets/iconfont/iconfont.js'
 
 Vue.use(VueRouter)
 
-const routes = [
-  {
-    path: '/',
-    component: RefreshData
-  }
-]
+const routes = [{
+  path: '/',
+  component: RefreshData
+}]
 
 const router = new VueRouter({
   routes
