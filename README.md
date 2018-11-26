@@ -1,16 +1,34 @@
 # PCSV
 
-:information_desk_person: 东大小微体育系跑操爬虫移动版 (*PaoCao Spider - Vue Version.*)，基于 Vue 搭建。
+:information_desk_person: 东大小微体育系跑操爬虫移动版 (PaoCao Spider h5 - Vue Version)
+
+:dancers: 基于 `Vue.js` (2.x) 和 `VUX` (2.x) UI 库搭建。
 
 :wave: 解决体育系网站只能通过内网访问限制（校内 VPN 同样被屏蔽）。
+
+## 初始化
+
+```bash
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:8080
+npm run dev
+
+# build for production with minification
+npm run build
+
+# build for production and view the bundle analyzer report
+npm run build --report
+```
 
 ## 使用说明
 
 :point_right: 注意：**使用时须将设备连接至 seu-wlan**
 
-为了缓解体育系服务器压力，网页内刷新数据按钮每半小时可点击一次。
+为了缓解体育系服务器压力，网页内刷新数据按钮每 40 分钟可点击一次。
 
-*[这里会有个gif]*
+_[这里会有个 gif]_
 
 ## 用户许可/免责声明
 
@@ -23,3 +41,7 @@
 5. 本解决方案已对所有爬取到的数据进行加密传输，请放心使用。
 6. 使用本解决方案而导致的任何问题，东大小微不承担任何责任。
 7. 一旦你使用此解决方案，即表示你同意以上全部条款。
+
+```
+
+```
