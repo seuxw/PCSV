@@ -7,14 +7,21 @@
       <div class="vux-circle-demo-p">
         <x-circle :percent="percent"
           :stroke-width="2"
-          :trail-width="2"
+          :trail-width="1"
           :stroke-color="['#36D1DC', '#5B86E5']"
           trail-color="#ececec">
-          <countup :start-val="1"
+          <countup v-if="step!=3"
+            :start-val="1"
             :end-val="percent"
             :duration="3"
             class="vux-circle-demo-font"></countup>
-          <span class="vux-circle-demo-font">%</span>
+          <span v-if="step!=3"
+            class="vux-circle-demo-font">%</span>
+          <svg v-else
+            class="icon myIconStyle"
+            aria-hidden="true">
+            　　<use xlink:href="#icon-dagouwuquan"></use>
+          </svg>
         </x-circle>
       </div>
     </div>
@@ -28,10 +35,23 @@
     <div>
       <box class="vux-button">
         <x-button @click.native="stepPlus"
+          v-if="step==0"
           :gradients="['#1D62F0', '#19D5FD']"
           style="border-radius:99px;">同 步 数 据</x-button>
-        <!-- <x-button :gradients="['#A644FF', '#FC5BC4']" style="border-radius:99px;" show-loading>iOS Gradients</x-button>
-        <x-button :gradients="['#6F1BFE', '#9479DF']" style="border-radius:99px;" show-loading>iOS Gradients</x-button> -->
+        <x-button @click.native="stepPlus"
+          v-else-if="step==1"
+          :gradients="['#6F1BFE', '#9479DF']"
+          style="border-radius:99px;"
+          show-loading>爬 取 数 据 中 ...</x-button>
+        <x-button @click.native="stepPlus"
+          v-else-if="step==2"
+          :gradients="['#A644FF', '#FC5BC4']"
+          style="border-radius:99px;"
+          show-loading>数 据 同 步 中 ...</x-button>
+        <x-button v-else
+          plain
+          disabled
+          style="border-radius:99px;color: #97A8B0;">距下次同步 20 分钟</x-button>
       </box>
     </div>
   </div>
@@ -56,21 +76,25 @@ export default {
       lastRefreshTime: '2018-11-25 20:00',
       percent: 0,
       marqueeMsg: [
-        '请稍等片刻，马上就好',
+        '稍等片刻，马上就好',
         'Tip: 每 40 分钟才可同步一次哦～',
         '秋意正好，不如喝杯热水休息一下',
         'Tip: 只有连接 seu-wlan 才可进行同步操作',
-        '我为人人，让人为我～'
+        '我为人人，人人为我～'
       ],
       step: 0
     }
   },
   methods: {
     stepPlus () {
+      this.step += 1
       this.percentPlus()
+      if (this.step === 3) {
+        this.percent = 200
+      }
     },
     percentPlus () {
-      this.percent += (100 / 17)
+      this.percent += (100 / 2)
     }
   }
 }
@@ -102,6 +126,11 @@ export default {
 }
 .vux-circle-demo > div {
   margin: 0 auto;
+}
+.myIconStyle{
+  width: 60%;
+  height: 60%;
+  color: #698491;
 }
 .vux-marquee {
   position: fixed;

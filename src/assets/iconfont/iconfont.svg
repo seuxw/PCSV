@@ -1,0 +1,29 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
+<!--
+2013-9-30: Created.
+-->
+<svg>
+<metadata>
+Created by iconfont
+</metadata>
+<defs>
+
+<font id="iconfont" horiz-adv-x="1024" >
+  <font-face
+    font-family="iconfont"
+    font-weight="500"
+    font-stretch="normal"
+    units-per-em="1024"
+    ascent="896"
+    descent="-128"
+  />
+    <missing-glyph />
+    
+    <glyph glyph-name="dagouwuquan" unicode="&#58930;" d="M348.91642 86.490036C366.143826 65.813129 396.474245 64.719451 415.101241 84.201622L950.902348 644.601683C962.763456 657.007341 962.48119 676.834083 950.271891 688.885949 938.06259 700.937816 918.54967 700.65101 906.688561 688.245352L370.887454 127.845291C377.657896 134.926568 389.68738 134.492799 395.963845 126.959577L118.728886 459.706217C107.730417 472.906947 88.28247 474.548838 75.290683 463.373484 62.298895 452.198128 60.682992 432.437406 71.681462 419.236676L348.91642 86.490036Z"  horiz-adv-x="1024" />
+
+    
+
+
+  </font>
+</defs></svg>
