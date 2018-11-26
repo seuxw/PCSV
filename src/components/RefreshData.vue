@@ -1,12 +1,14 @@
 <template>
   <div>
     <div>
-      <divider class="vux-divider">最后同步于: {{lastRefreshTime}}</divider>
+      <divider class="vux-divider">
+        <span style="color: #698491;">最后同步于: {{lastRefreshTime}}</span>
+      </divider>
     </div>
     <div class="vux-circle-demo">
       <div class="vux-circle-demo-p">
         <x-circle :percent="percent"
-          :stroke-width="2"
+          :stroke-width="1"
           :trail-width="1"
           :stroke-color="['#36D1DC', '#5B86E5']"
           trail-color="#ececec">
@@ -29,7 +31,8 @@
       <marquee :interval=3000>
         <marquee-item v-for="i in marqueeMsg"
           :key="i"
-          class="align-middle">{{i}}</marquee-item>
+          class="align-middle"
+          style="list-style:none;">{{i}}</marquee-item>
       </marquee>
     </div>
     <div>
@@ -113,12 +116,12 @@ export default {
   -webkit-transform: scale(0.8);
 }
 .vux-circle-demo {
-  padding-top: 36%;
+  padding-top: 21%;
   text-align: center;
 }
 .vux-circle-demo-p {
-  width: 70%;
-  height: 70%;
+  width: 60%;
+  height: 60%;
 }
 .vux-circle-demo-font {
   color: #335769;
@@ -127,7 +130,7 @@ export default {
 .vux-circle-demo > div {
   margin: 0 auto;
 }
-.myIconStyle{
+.myIconStyle {
   width: 60%;
   height: 60%;
   color: #698491;
