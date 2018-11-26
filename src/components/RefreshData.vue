@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <divider class="vux-divider">最后同步于: {{'2018-11-25 20:00'}}</divider>
+      <divider class="vux-divider">最后同步于: {{lastRefreshTime}}</divider>
     </div>
     <div class="vux-circle-demo">
       <div class="vux-circle-demo-p">
@@ -10,7 +10,11 @@
           :trail-width="2"
           :stroke-color="['#36D1DC', '#5B86E5']"
           trail-color="#ececec">
-          <span class="vux-circle-demo-font">{{ percent }}%</span>
+          <countup :start-val="1"
+            :end-val="percent"
+            :duration="3"
+            class="vux-circle-demo-font"></countup>
+          <span class="vux-circle-demo-font">%</span>
         </x-circle>
       </div>
     </div>
@@ -23,9 +27,9 @@
     </div>
     <div>
       <box class="vux-button">
-        <x-button :gradients="['#1D62F0', '#19D5FD']"
-          style="border-radius:99px;"
-          disabled>同 步 数 据</x-button>
+        <x-button @click.native="stepPlus"
+          :gradients="['#1D62F0', '#19D5FD']"
+          style="border-radius:99px;">同 步 数 据</x-button>
         <!-- <x-button :gradients="['#A644FF', '#FC5BC4']" style="border-radius:99px;" show-loading>iOS Gradients</x-button>
         <x-button :gradients="['#6F1BFE', '#9479DF']" style="border-radius:99px;" show-loading>iOS Gradients</x-button> -->
       </box>
@@ -34,12 +38,13 @@
 </template>
 
 <script>
-import { Box, Divider, Marquee, MarqueeItem, XButton, XCircle } from 'vux'
+import { Box, Countup, Divider, Marquee, MarqueeItem, XButton, XCircle } from 'vux'
 
 export default {
   name: 'RefreshData',
   components: {
     Box,
+    Countup,
     Divider,
     Marquee,
     MarqueeItem,
@@ -48,15 +53,24 @@ export default {
   },
   data () {
     return {
-      msg: 'Hello World!',
-      percent: 83,
+      lastRefreshTime: '2018-11-25 20:00',
+      percent: 0,
       marqueeMsg: [
         '请稍等片刻，马上就好',
         'Tip: 每 40 分钟才可同步一次哦～',
         '秋意正好，不如喝杯热水休息一下',
         'Tip: 只有连接 seu-wlan 才可进行同步操作',
         '我为人人，让人为我～'
-      ]
+      ],
+      step: 0
+    }
+  },
+  methods: {
+    stepPlus () {
+      this.percentPlus()
+    },
+    percentPlus () {
+      this.percent += (100 / 17)
     }
   }
 }
