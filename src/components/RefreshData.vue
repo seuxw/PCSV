@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div class="vux-background"></div>
     <!-- circle 组件 -->
     <div class="vux-circle-demo">
       <div class="vux-circle-demo-p">
@@ -119,8 +120,11 @@ export default {
 </script>
 
 <style>
-.vux-demo {
-  text-align: center;
+.vux-background {
+  background: linear-gradient(to top right, #ecf5ff, #f7feff, #f7f9ff);
+  /* background: radial-gradient(circle, #f7feff, #ecf5ff); */
+  width: 100vw;
+  height: 100vh;
 }
 .align-middle {
   text-align: center;
@@ -128,8 +132,11 @@ export default {
   -webkit-transform: scale(0.75);
 }
 .vux-circle-demo {
-  padding-top: 40vh;
+  position: fixed;
+  left: 50%;
+  top: 40vh;
   margin-top: -30vmin;
+  margin-left: -30vmin;
   text-align: center;
 }
 .vux-circle-demo-p {
@@ -140,9 +147,6 @@ export default {
   color: #335769;
   font-size: 400%;
 }
-.vux-circle-demo > div {
-  margin: 0 auto;
-}
 .myIconStyle {
   width: 60%;
   height: 60%;
@@ -150,7 +154,7 @@ export default {
 }
 .vux-marquee {
   position: fixed;
-  bottom: 11vh;
+  bottom: 9vh;
   right: 0%;
   color: #335769;
 }
