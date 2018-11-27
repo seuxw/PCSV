@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-transfer-dom>
+    <!-- <div v-transfer-dom>
       <confirm v-model="show2"
         :title="'须知'"
         theme="android"
@@ -9,6 +9,22 @@
         <p>请认真阅读<a href="https://github.com/seuxw/PCSV/blob/master/EULA.md">《用户许可协议》</a>。</p>
         <p>使用本网页爬虫，即表示您同意协议中条款。</p>
       </confirm>
+    </div> -->
+    <div v-transfer-dom>
+      <x-dialog v-model="showHideOnBlur"
+        class="dialog-demo"
+        hide-on-blur>
+        <div class="img-box">
+          <img src="https://cdn.dribbble.com/users/31664/screenshots/4479705/legs_running_dribbble_1.gif"
+            style="max-width:100%">
+          <p class="align-middle"
+            style="margin-top: 10px;">所有数据将加密传输，请放心使用</p>
+          <p class="align-middle">请认真阅读<a href="https://github.com/seuxw/PCSV/blob/master/EULA.md">《用户许可协议》</a></p>
+        </div>
+        <div @click="showHideOnBlur=false">
+          <span class="vux-close"></span>
+        </div>
+      </x-dialog>
     </div>
     <div class="vux-background"></div>
     <!-- circle 组件 -->
@@ -72,7 +88,7 @@
 </template>
 
 <script>
-import { Box, Confirm, Countup, Divider, Marquee, MarqueeItem, TransferDomDirective as TransferDom, XButton, XCircle } from 'vux'
+import { Box, Confirm, Countup, Divider, Marquee, MarqueeItem, TransferDomDirective as TransferDom, XButton, XCircle, XDialog } from 'vux'
 
 export default {
   name: 'RefreshData',
@@ -88,7 +104,8 @@ export default {
     MarqueeItem,
     TransferDom,
     XButton,
-    XCircle
+    XCircle,
+    XDialog
   },
   data () {
     return {
@@ -112,7 +129,8 @@ export default {
       ],
       marqueeMsg: null,
       step: 0,
-      show2: true
+      show2: true,
+      showHideOnBlur: true
     }
   },
   created: function () {
@@ -135,7 +153,9 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less" scoped>
+@import '~vux/src/styles/close';
+
 .vux-background {
   background: linear-gradient(to top right, #f2f7ff, #fcffff, #ecf5ff);
   /* background: radial-gradient(circle, #f7feff, #ecf5ff); */
@@ -180,5 +200,15 @@ export default {
   width: 60vmin;
   bottom: 3vh;
   margin-left: -30vmin;
+}
+.dialog-demo {
+  .img-box {
+    height: 295px;
+    overflow: hidden;
+  }
+  .vux-close {
+    margin-top: 12px;
+    margin-bottom: 25px;
+  }
 }
 </style>
