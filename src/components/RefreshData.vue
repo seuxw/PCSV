@@ -1,5 +1,14 @@
 <template>
   <div>
+    <div v-transfer-dom>
+      <confirm v-model="show2"
+        :title="'须知'"
+        theme="android"
+        hide-on-blur>
+        <p>微微已对所有爬取到的数据进行加密传输，请放心使用。</p>
+        <p>请认真阅读<a href="https://github.com/seuxw/PCSV/blob/master/EULA.md">《用户许可协议》</a>。使用本网页爬虫,即表示您同意协议中条款。</p>
+      </confirm>
+    </div>
     <div class="vux-background"></div>
     <!-- circle 组件 -->
     <div class="vux-circle-demo">
@@ -62,16 +71,21 @@
 </template>
 
 <script>
-import { Box, Countup, Divider, Marquee, MarqueeItem, XButton, XCircle } from 'vux'
+import { Box, Confirm, Countup, Divider, Marquee, MarqueeItem, TransferDomDirective as TransferDom, XButton, XCircle } from 'vux'
 
 export default {
   name: 'RefreshData',
+  directives: {
+    TransferDom
+  },
   components: {
     Box,
+    Confirm,
     Countup,
     Divider,
     Marquee,
     MarqueeItem,
+    TransferDom,
     XButton,
     XCircle
   },
@@ -96,7 +110,8 @@ export default {
         'Tip: 如有问题，欢迎致信微微邮箱'
       ],
       marqueeMsg: null,
-      step: 0
+      step: 0,
+      show2: true
     }
   },
   created: function () {
