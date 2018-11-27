@@ -6,7 +6,8 @@
         theme="android"
         hide-on-blur>
         <p>微微已对所有爬取到的数据进行加密传输，请放心使用。</p>
-        <p>请认真阅读<a href="https://github.com/seuxw/PCSV/blob/master/EULA.md">《用户许可协议》</a>。使用本网页爬虫,即表示您同意协议中条款。</p>
+        <p>请认真阅读<a href="https://github.com/seuxw/PCSV/blob/master/EULA.md">《用户许可协议》</a>。</p>
+        <p>使用本网页爬虫，即表示您同意协议中条款。</p>
       </confirm>
     </div>
     <div class="vux-background"></div>
@@ -136,7 +137,7 @@ export default {
 
 <style>
 .vux-background {
-  background: linear-gradient(to top right, #ecf5ff, #f7feff, #f7f9ff);
+  background: linear-gradient(to top right, #f2f7ff, #fcffff, #ecf5ff);
   /* background: radial-gradient(circle, #f7feff, #ecf5ff); */
   width: 100vw;
   height: 100vh;
@@ -169,7 +170,7 @@ export default {
 }
 .vux-marquee {
   position: fixed;
-  bottom: 9vh;
+  bottom: 10vh;
   right: 0%;
   color: #335769;
 }
