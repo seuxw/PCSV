@@ -128,13 +128,13 @@ export default {
   -webkit-transform: scale(0.75);
 }
 .vux-circle-demo {
-  padding-top: 36%;
-  right: 0%;
+  padding-top: 40vh;
+  margin-top: -30vmin;
   text-align: center;
 }
 .vux-circle-demo-p {
-  width: 60%;
-  height: 60%;
+  height: 60vmin;
+  width: 60vmin;
 }
 .vux-circle-demo-font {
   color: #335769;
@@ -150,15 +150,15 @@ export default {
 }
 .vux-marquee {
   position: fixed;
-  bottom: 12%;
+  bottom: 11vh;
   right: 0%;
-  left: 0%;
   color: #335769;
 }
 .vux-button {
   position: fixed;
-  bottom: 5%;
-  right: 18%;
-  left: 18%;
+  left: 50%;
+  width: 60vmin;
+  bottom: 3vh;
+  margin-left: -30vmin;
 }
 </style>
