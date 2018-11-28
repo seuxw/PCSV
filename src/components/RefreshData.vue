@@ -10,6 +10,7 @@
         <p>使用本网页爬虫，即表示您同意协议中条款。</p>
       </confirm>
     </div> -->
+    <!-- 提示框 -->
     <div v-transfer-dom>
       <x-dialog v-model="showHideOnBlur"
         class="dialog-demo"
@@ -19,13 +20,16 @@
             style="max-width:100%">
           <p class="align-middle"
             style="margin-top: 10px;">所有数据将加密传输，请放心使用</p>
-          <p class="align-middle">请认真阅读<a href="https://github.com/seuxw/PCSV/blob/master/EULA.md">《用户许可协议》</a></p>
+          <p class="align-middle">请认真阅读
+            <a href="https://github.com/seuxw/PCSV/blob/master/EULA.md">《用户许可协议》</a>
+          </p>
         </div>
         <div @click="showHideOnBlur=false">
           <span class="vux-close"></span>
         </div>
       </x-dialog>
     </div>
+    <!-- html 背景 -->
     <div class="vux-background"></div>
     <!-- circle 组件 -->
     <div class="vux-circle-demo">
@@ -37,13 +41,13 @@
           trail-color="#ececec">
           <!-- circle 内含 -->
           <!-- 百分数 -->
-          <countup v-if="step<3"
+          <countup v-if="step<totalStep"
             :start-val="1"
             :end-val="percent"
             :duration="3"
             class="vux-circle-demo-font"></countup>
           <!-- 百分号 -->
-          <span v-if="step<3"
+          <span v-if="step<totalStep"
             class="vux-circle-demo-font">%</span>
           <!-- 成功弯勾 -->
           <svg v-else
@@ -65,29 +69,31 @@
     </div>
     <!-- button 组件 -->
     <box class="vux-button">
-      <x-button @click.native="stepPlus"
+      <x-button @click.native="startSpider"
         v-if="step==0"
         :gradients="['#1D62F0', '#19D5FD']"
         style="border-radius:99px;">同 步 数 据</x-button>
+      <x-button v-else-if="step==totalStep"
+        plain
+        disabled
+        style="border-radius:99px;color: #97A8B0;">同 步 数 据 (21min)</x-button>
       <x-button @click.native="stepPlus"
-        v-else-if="step==1"
+        v-else-if="step!=totalStep-1"
         :gradients="['#6F1BFE', '#9479DF']"
         style="border-radius:99px;"
         show-loading>爬 取 数 据 中 ...</x-button>
       <x-button @click.native="stepPlus"
-        v-else-if="step==2"
+        v-else
         :gradients="['#A644FF', '#FC5BC4']"
         style="border-radius:99px;"
         show-loading>数 据 同 步 中 ...</x-button>
-      <x-button v-else
-        plain
-        disabled
-        style="border-radius:99px;color: #97A8B0;">同 步 数 据 (21min)</x-button>
     </box>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+import CryptoJS from 'crypto-js'
 import { Box, Confirm, Countup, Divider, Marquee, MarqueeItem, TransferDomDirective as TransferDom, XButton, XCircle, XDialog } from 'vux'
 
 export default {
@@ -109,8 +115,10 @@ export default {
   },
   data () {
     return {
-      lastRefreshTime: '2018-11-25 20:00',
+      totalStep: 4,
       percent: 0,
+      step: 0,
+      marqueeMsg: null,
       marqueeMsg0: [
         'Tip: 每 40 分钟才可同步一次哦～',
         '动动手指，获取最新跑操数据吧',
@@ -127,10 +135,10 @@ export default {
         '关注小微 GitHub，一起参与开发～',
         'Tip: 如有问题，欢迎致信微微邮箱'
       ],
-      marqueeMsg: null,
-      step: 0,
-      show2: true,
-      showHideOnBlur: true
+      showHideOnBlur: true,
+      sessionID: '66D1F8B8FEC38BEA985B04976BE0A841',
+      dataJson: {},
+      dataGzip: null
     }
   },
   created: function () {
@@ -139,15 +147,84 @@ export default {
   methods: {
     stepPlus () {
       this.step += 1
-      this.percentPlus()
+      this.percent += (100 / this.totalStep)
       this.marqueeMsg = this.marqueeMsg1
-      if (this.step === 3) {
+      if (this.step === this.totalStep) {
         this.percent = 200
         this.marqueeMsg = this.marqueeMsg0
       }
     },
-    percentPlus () {
-      this.percent += (100 / 2)
+    dataZip () {
+      let pako = require('pako')
+      let dataStr = JSON.stringify(this.dataJson)
+      this.dataGzip = pako.gzip(dataStr)
+    },
+    async startSpider () {
+      this.stepPlus()
+      let expiresMin = 10
+      let d = new Date()
+      this.dataJson = {}
+      d.setTime(d.getTime() + 60 * 1000 * expiresMin)
+      document.cookie =
+        'JSESSIONID=' + this.sessionID + ';path=/;expires=' + d.toGMTString()
+      await this.getHtmlAll()
+      this.dataZip()
+      console.log(this.dataGzip)
+    },
+    async getHtmlAll () {
+      let page = this.totalStep - 2
+      do {
+        await this.getHtml(page)
+      } while (--page)
+    },
+    async getHtml (page) {
+      await this.getHtmlPromise(page)
+        .then(res => {
+          if (res.status !== '200') {
+            res = res.data
+            this.dataJson[page] = this.htmlSplit(res)
+            // console.log(this.dataJson[page])
+            // console.log(page)
+            this.stepPlus()
+          } else {
+          }
+        })
+        .catch(function (e) {
+          console.log(e)
+        })
+    },
+    htmlSplit (res) {
+      var resRe =
+        '<td width=.+align="center">213(.+)</td>\\s+<td width=.+align="center">.+</td>\\s+<td width=.+align="center">.+</td>\\s+<td width=.+align="center">.+</td>\\s+<td width=.+align="center">.+</td>\\s+<td width=.+align="center">(.+)</td>'
+      var resReG = new RegExp(resRe, 'g')
+      var result = res.match(resReG)
+      let resultList = []
+      let len = result.length
+      let i = len - 1
+      if (i > -1) {
+        do {
+          let resultSplit = result[i].match(resRe)
+          resultList.push(resultSplit[1] + resultSplit[2])
+        } while (i-- > 1)
+      }
+      // console.log(new Date().getTime());
+      let resultStr = len + '.' + resultList.join('.')
+      return resultStr
+    },
+    getHtmlPromise (page) {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(
+            '/SportWeb/gym/gymExercise/gymExercise_query_resultCnt.jsp?pageStr=' +
+            page
+          )
+          .then(function (response) {
+            resolve(response)
+          })
+          .catch(function (error) {
+            reject(error)
+          })
+      })
     }
   }
 }
