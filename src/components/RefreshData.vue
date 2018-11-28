@@ -136,9 +136,8 @@ export default {
         'Tip: 如有问题，欢迎致信微微邮箱'
       ],
       showHideOnBlur: true,
-      sessionID: '66D1F8B8FEC38BEA985B04976BE0A841',
-      dataJson: {},
-      dataGzip: null
+      sessionID: '5CF1C1D07A81503A5AC5E62076C26136',
+      dataJson: {}
     }
   },
   created: function () {
@@ -154,10 +153,21 @@ export default {
         this.marqueeMsg = this.marqueeMsg0
       }
     },
-    dataZip () {
+    dataGzip () {
       let pako = require('pako')
-      let dataStr = JSON.stringify(this.dataJson)
-      this.dataGzip = pako.gzip(dataStr)
+      return pako.gzip(JSON.stringify(this.dataJson), { to: 'string' })
+    },
+    dataAES () {
+      // TODO: 此处密码为测试用
+      const key = CryptoJS.enc.Utf8.parse('1234123412ABCDEF') // 十六位十六进制数作为密钥
+      const iv = CryptoJS.enc.Utf8.parse('ABCDEF1234123412') // 十六位十六进制数作为密钥偏移量
+      let encrypted = CryptoJS.AES.encrypt(this.dataGzip(), key,
+        { iv: iv,
+          mode: CryptoJS.mode.CBC,
+          padding: CryptoJS.pad.Pkcs7 })
+      let dataAes = encrypted.ciphertext.toString()
+      // console.log(dataAes)
+      return dataAes
     },
     async startSpider () {
       this.stepPlus()
@@ -168,8 +178,7 @@ export default {
       document.cookie =
         'JSESSIONID=' + this.sessionID + ';path=/;expires=' + d.toGMTString()
       await this.getHtmlAll()
-      this.dataZip()
-      console.log(this.dataGzip)
+      this.dataAES()
     },
     async getHtmlAll () {
       let page = this.totalStep - 2
