@@ -16,7 +16,7 @@
         class="dialog-demo"
         hide-on-blur>
         <div class="img-box">
-          <img src="https://cdn.dribbble.com/users/31664/screenshots/4479705/legs_running_dribbble_1.gif"
+          <img src="https://s1.ax1x.com/2018/11/28/FVTIxK.gif"
             style="max-width:100%">
           <p class="align-middle"
             style="margin-top: 10px;">所有数据将加密传输，请放心使用</p>
