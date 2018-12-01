@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- <span id="qqLoginBtn"></span> -->
     <!-- <div v-transfer-dom>
       <confirm v-model="show2"
         :title="'须知'"
@@ -170,6 +171,11 @@ export default {
       return dataAes
     },
     async startSpider () {
+      QC.Login.showPopup({
+        appId: '101529980',
+        redirectURI: 'https://seuxw.cn/webapp/paocao'
+      })
+      this.getZccxCookie()
       this.stepPlus()
       let expiresMin = 10
       let d = new Date()
@@ -234,6 +240,10 @@ export default {
             reject(error)
           })
       })
+    },
+    async getZccxCookie () {
+      let res = await axios.get('/xAuth')
+      console.log(res)
     }
   }
 }

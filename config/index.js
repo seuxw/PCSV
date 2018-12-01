@@ -18,6 +18,13 @@ module.exports = {
           '^/SportWeb': '/SportWeb' //重写接口
         }
       },
+      '/xAuth': {
+        target: 'http://localhost:8895', //目标接口域名
+        changeOrigin: true, //是否跨域
+        pathRewrite: {
+          '^/xAuth': '/xAuth' //重写接口
+        }
+      },
     },
 
     // Various Dev Server settings
