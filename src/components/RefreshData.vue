@@ -171,6 +171,9 @@ export default {
       return dataAes
     },
     async startSpider () {
+      console.log(this.$route.params.access_token)
+      console.log(this.$route.params.expires_in)
+      // eslint-disable-next-line
       QC.Login.showPopup({
         appId: '101529980',
         redirectURI: 'https://seuxw.cn/webapp/paocao'

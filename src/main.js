@@ -8,9 +8,14 @@ import './assets/iconfont/iconfont.js'
 Vue.use(VueRouter)
 
 const routes = [{
+  path: '/:access_token&:expires_in',
+  component: RefreshData
+},
+{
   path: '/',
   component: RefreshData
-}]
+}
+]
 
 const router = new VueRouter({
   routes
