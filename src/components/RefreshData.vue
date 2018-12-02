@@ -142,7 +142,14 @@ export default {
     }
   },
   created: function () {
-    this.marqueeMsg = this.marqueeMsg0
+    if (this.$cookies.get('jwtoken') == null) {
+      this.$router.push({
+        path: '/login',
+        name: 'login'
+      })
+    } else {
+      this.marqueeMsg = this.marqueeMsg0
+    }
   },
   methods: {
     stepPlus () {
@@ -171,13 +178,8 @@ export default {
       return dataAes
     },
     async startSpider () {
-      console.log(this.$route.params.access_token)
-      console.log(this.$route.params.expires_in)
-      // eslint-disable-next-line
-      QC.Login.showPopup({
-        appId: '101529980',
-        redirectURI: 'https://seuxw.cn/webapp/paocao'
-      })
+      // console.log(this.$route.params.access_token)
+      // console.log(this.$route.params.expires_in)
       this.getZccxCookie()
       this.stepPlus()
       let expiresMin = 10

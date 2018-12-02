@@ -3,17 +3,25 @@ import FastClick from 'fastclick'
 import VueRouter from 'vue-router'
 import App from './App'
 import RefreshData from './components/RefreshData'
+import Login from './components/Login'
 import './assets/iconfont/iconfont.js'
+import VueCookies from 'vue-cookies'
 
 Vue.use(VueRouter)
+Vue.use(VueCookies)
 
 const routes = [{
-  path: '/:access_token&:expires_in',
+  path: '/paocao/:access_token&:expires_in',
   component: RefreshData
 },
 {
-  path: '/',
+  path: '/paocao/',
   component: RefreshData
+},
+{
+  path: '/login/',
+  name: 'login',
+  component: Login
 }
 ]
 
