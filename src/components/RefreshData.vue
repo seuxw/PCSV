@@ -142,7 +142,7 @@ export default {
     }
   },
   created: function () {
-    if (this.$cookies.get('jwtoken') == null) {
+    if (this.$cookies.get('xAuth') == null) {
       this.$router.push({
         path: '/login',
         name: 'login'
