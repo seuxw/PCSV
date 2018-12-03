@@ -12,10 +12,12 @@ Vue.use(VueCookies)
 
 const routes = [{
   path: '/paocao/:access_token&:expires_in',
+  name: 'paocao1',
   component: RefreshData
 },
 {
-  path: '/paocao/',
+  path: '/paocao',
+  name: 'paocao',
   component: RefreshData
 },
 {

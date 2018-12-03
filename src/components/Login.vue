@@ -26,7 +26,7 @@ export default {
     Toast,
     TransferDom
   },
-  created: function () {
+  created: async function () {
     // if (this.$cookies.get('__qc__k') == null) {
     // //   eslint-disable-next-line
     //   QC.Login.showPopup({
@@ -34,29 +34,43 @@ export default {
     //     redirectURI: 'https://seuxw.cn/webapp/paocao'
     //   })
     // } else
-    if (this.$cookies.get('xAuth') == null) {
-      this.loadShow = false
-      // TODO： 多次尝试
-      // TODO： 异常反馈
-      this.getXAuth()
-      // TODO： token 写入 cookie
-    } else {
-      this.loadShow = false
-      this.toastShow = true
-    }
+    // if (this.$cookies.get('xAuth') == null) {
+    //   this.loadShow = false
+    //   // TODO： 添加一卡通输入框
+
+    //   let xAuth = await this.getXAuth()
+    //   if (xAuth == null) {
+    //     this.loadShow = false
+    //     this.toastShow = true
+    //   } else {
+    //     this.$cookies.set('xAuth', xAuth)
+    //     this.$router.push({
+    //       path: '/paocao',
+    //       name: 'paocao'
+    //     })
+    //   }
+    // } else {
+    //   this.loadShow = false
+    //   this.toastShow = true
+    // }
+    this.loadShow = false
   },
   data () {
     return {
       loadShow: true,
-      toastShow: false
+      toastShow: false,
+      cardno: null
     }
   },
   methods: {
-    async getXAuth () {
-      // TODO： token 验证
-      let res = await axios.post('/xAuth?tk=' + "this.$cookies.get('__qc__k')"
-      )
-      console.log(res)
+    async getXAuth (tk, cardno) {
+      let i = 5
+      do {
+        var res = await axios.post('/xAuth?tk=' + this.$cookies.get('__qc__k') +
+          '&cardno=' + this.cardno)
+        res = res.data['data']['token']
+      } while (--i || res == null)
+      return res
     }
   }
 }
