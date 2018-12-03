@@ -178,8 +178,6 @@ export default {
       return dataAes
     },
     async startSpider () {
-      // console.log(this.$route.params.access_token)
-      // console.log(this.$route.params.expires_in)
       this.getZccxCookie()
       this.stepPlus()
       let expiresMin = 10
@@ -247,7 +245,7 @@ export default {
       })
     },
     async getZccxCookie () {
-      let res = await axios.get('/xAuth')
+      let res = await axios.get('/basicTool/paocaoSpider')
       console.log(res)
     }
   }
