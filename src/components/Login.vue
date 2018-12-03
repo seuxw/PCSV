@@ -7,6 +7,18 @@
     <toast v-model="toastShow"
       type="cancel"
       :time=5000>登录异常</toast>
+    <div v-transfer-dom>
+      <confirm v-model="confirmShow"
+        show-input
+        placeholder="输入一卡通号"
+        close-on-confirm
+        :title="'用户绑定'"
+        :input-attrs="{type:'number'}"
+        @on-confirm="onConfirm5"
+        confirm-text="我很确定"
+        :show-cancel-button=false>
+      </confirm>
+    </div>
     <!-- html 背景 -->
     <div class="vux-background"></div>
   </div>
@@ -14,7 +26,7 @@
 
 <script>
 import axios from 'axios'
-import { Loading, Toast, TransferDomDirective as TransferDom } from 'vux'
+import { Confirm, Loading, Toast, TransferDomDirective as TransferDom } from 'vux'
 
 export default {
   name: 'Login',
@@ -22,6 +34,7 @@ export default {
     TransferDom
   },
   components: {
+    Confirm,
     Loading,
     Toast,
     TransferDom
@@ -59,7 +72,8 @@ export default {
     return {
       loadShow: true,
       toastShow: false,
-      cardno: null
+      cardno: null,
+      confirmShow: true
     }
   },
   methods: {
@@ -70,7 +84,7 @@ export default {
           '&cardno=' + this.cardno)
         res = res.data['data']['token']
       } while (--i || res == null)
-      return res
+      return { res: '555' }
     }
   }
 }
