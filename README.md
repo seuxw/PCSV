@@ -1,4 +1,8 @@
- <div align=center>![logo](static/favicon.ico)
+<div align=center>
+
+![logo](static/favicon.ico)
+
+</div>
 
 # [PCSV](https://seuxw.cn/webapp/paocao)
 
