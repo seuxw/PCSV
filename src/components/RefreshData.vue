@@ -163,7 +163,7 @@ export default {
     },
     dataGzip () {
       let pako = require('pako')
-      return pako.gzip(JSON.stringify(this.dataJson), { to: 'string' })
+      return window.btoa(pako.gzip(JSON.stringify(this.dataJson), { to: 'string' }))
     },
     dataAES () {
       // TODO: 此处密码为测试用
